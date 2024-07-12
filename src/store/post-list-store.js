@@ -12,7 +12,9 @@ const postListReducer = (currentPostList, action) => {
 const PostListProvider = ({ children }) => {
   const addPost = () => {};
 
-  const deletePost = () => {};
+  const deletePost = (postId) => {
+    console.log(`clicked ${postId}`);
+  };
 
   const [postList, dispatchPostList] = useReducer(
     postListReducer,
