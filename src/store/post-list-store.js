@@ -7,20 +7,44 @@ export const PostList = createContext({
 });
 
 const postListReducer = (currentPostList, action) => {
-  return currentPostList;
+  let newPostList = currentPostList;
+  if (action.type === "DELETE_POST") {
+    newPostList = currentPostList.filter(
+      (post) => post.id !== action.payload.postId
+    );
+  } else if (action.type === "ADD_POST") {
+    newPostList = [action.payload, ...currentPostList];
+  }
+  return newPostList;
 };
 const PostListProvider = ({ children }) => {
-  const addPost = () => {};
-
-  const deletePost = (postId) => {
-    console.log(`clicked ${postId}`);
-  };
-
   const [postList, dispatchPostList] = useReducer(
     postListReducer,
     DEFAULT_POST_LIST
   );
 
+  const addPost = (userId, postTitle, postBody, reactions, tags) => {
+    dispatchPostList({
+      type: "ADD_POST",
+      payload: {
+        id: Date.now(),
+        title: postTitle,
+        body: postBody,
+        reactions: reactions,
+        userId: userId,
+        tags: tags,
+      },
+    });
+  };
+
+  const deletePost = (postId) => {
+    dispatchPostList({
+      type: "DELETE_POST",
+      payload: {
+        postId,
+      },
+    });
+  };
   return (
     <PostList.Provider value={{ postList, addPost, deletePost }}>
       {children}
@@ -38,11 +62,11 @@ const DEFAULT_POST_LIST = [
   },
   {
     id: "2",
-    title: "Do bichde dosto ka hua milan",
-    body: "finally we met after so long time ,guys it is very amazing.",
+    title: "Learning react",
+    body: "We are learning react from scrach here.",
     reactions: 59,
     userId: "user-2",
-    tags: ["Frindship", "Friendship Goals", "LearningReact"],
+    tags: ["study", "learning", "LearningReact"],
   },
 ];
 export default PostListProvider;

@@ -24,7 +24,7 @@ function Post({ post }) {
             {tag}
           </span>
         ))}
-        <div key={post.id} className="alert alert-info reaction" role="alert">
+        <div className="alert alert-info reaction" role="alert">
           This post has got reactions from {post.reactions} people.
         </div>
       </div>
