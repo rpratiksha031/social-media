@@ -26,7 +26,7 @@ function Post({ post }) {
         ))}
         <div className="alert alert-info reaction" role="alert">
           This post has got reactions from {post.reactions} people.
-        </div>
+        </div>{" "}
       </div>
     </div>
   );
