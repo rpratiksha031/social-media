@@ -3,6 +3,7 @@ import Post from "./Post";
 import { PostList as PostListData } from "../store/post-list-store";
 function PostList() {
   const { postList, addInitialPost } = useContext(PostListData);
+
   useEffect(() => {
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
@@ -13,9 +14,7 @@ function PostList() {
 
   return (
     <>
-      {postList.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      {postList && postList.map((post) => <Post key={post.id} post={post} />)}
     </>
   );
 }

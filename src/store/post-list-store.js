@@ -1,3 +1,4 @@
+// import { Collapse } from "bootstrap";
 import { createContext, useReducer } from "react";
 
 export const PostList = createContext({
@@ -8,6 +9,7 @@ export const PostList = createContext({
 });
 
 const postListReducer = (currentPostList, action) => {
+  // console.log(action);
   let newPostList = currentPostList;
   if (action.type === "DELETE_POST") {
     newPostList = currentPostList.filter(
@@ -20,6 +22,7 @@ const postListReducer = (currentPostList, action) => {
   }
   return newPostList;
 };
+
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
@@ -39,7 +42,7 @@ const PostListProvider = ({ children }) => {
 
   const addInitialPost = (posts) => {
     dispatchPostList({
-      type: "ADD_POST",
+      type: "ADD_INITIAL_POST",
       payload: posts,
     });
   };
